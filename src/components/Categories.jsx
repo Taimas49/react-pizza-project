@@ -30,13 +30,13 @@ import PropTypes from 'prop-types';
 //   }
 // }
 
-
-function Categories({ items }) {
+const Categories = React.memo(function Categories({ items, onClickCategories }) {
 
   const [activeItem, setActiveItem] = useState(null);
 
   const onSelectItem = (index) => {
     setActiveItem(index);
+    onClickCategories(index);
   };
 
 
@@ -56,6 +56,8 @@ function Categories({ items }) {
     </div>
   );
 }
+);
+
 
 Categories.propTypes = {
   items: PropTypes.node,
