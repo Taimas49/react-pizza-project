@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 
@@ -30,38 +30,32 @@ import PropTypes from 'prop-types';
 //   }
 // }
 
-const Categories = React.memo(function Categories({ items, onClickCategories }) {
+const Categories = React.memo(
+  function Categories({ activeCategory, items, onClickCategories }) {
 
-  const [activeItem, setActiveItem] = useState(null);
-
-  const onSelectItem = (index) => {
-    setActiveItem(index);
-    onClickCategories(index);
-  };
-
-
-  // console.log(activeItem);
-  return (
-    <div className="categories">
-      <ul>
-        <li className={activeItem === null ? 'active' : ''}
-          onClick={() => { onSelectItem(null); }}>Все</li>
-        {
-          items && items.map((name, index) =>
-            <li className={activeItem === index ? 'active' : ''}
-              onClick={() => onSelectItem(index)}
-              key={`${name}_${index}`}>{name}</li>)
-        }
-      </ul>
-    </div>
-  );
-}
+    // console.log(activeItem);
+    return (
+      <div className="categories">
+        <ul>
+          <li className={activeCategory === null ? 'active' : ''}
+            onClick={() => { onClickCategories(null); }}>Все</li>
+          {
+            items && items.map((name, index) =>
+              <li className={activeCategory === index ? 'active' : ''}
+                onClick={() => onClickCategories(index)}
+                key={`${name}_${index}`}>{name}</li>)
+          }
+        </ul>
+      </div>
+    );
+  }
 );
 
 
 Categories.propTypes = {
-  items: PropTypes.node,
-  onClickCategories: PropTypes.func
+  items: PropTypes.arrayOf(PropTypes.string),
+  onClickCategories: PropTypes.func,
+  activeCategory: PropTypes.number
 };
 
 
